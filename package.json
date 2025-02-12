@@ -6,22 +6,29 @@
   "scripts": {
     "dev": "ts-node index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "seed": "ts-node prisma/seeds/seed.ts",
+    "test": "npx jest"
   },
   "author": "Rowel Dela Cruz",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^6.3.1",
     "@types/express": "^4.17.14",
+    "@types/jest": "^29.5.14",
     "@types/node": "^22.13.1",
+    "@types/supertest": "^6.0.2",
     "apollo-server-express": "^3.13.0",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "graphql": "^16.10.0",
+    "jest": "^29.7.0",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.13.2",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   },
@@ -31,5 +38,9 @@
   },
   "prisma": {
     "seed": "ts-node prisma/seeds/seed.ts"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
   }
 }

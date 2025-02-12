@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "../prisma"; // Import the shared Prisma instance
 
-const prisma = new PrismaClient();
 
 export const resolvers = {
   Query: {
@@ -24,7 +23,7 @@ export const resolvers = {
       
 
       console.log(serviceConnections)
-      
+
       const lead = await prisma.lead.create({
         data: {
           name,

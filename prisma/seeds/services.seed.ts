@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export async function serviceSeed() {
+  console.log("Initialize data for services (Delivery, Pickup, Payment)");
   await prisma.service.createMany({
     data: [
       { type: "DELIVERY" },
@@ -11,8 +12,9 @@ export async function serviceSeed() {
     ],
     skipDuplicates: true, // Avoid duplicates
   });
-
-  console.log("Initialize data for services (Delivery, Pickup, Payment)");
+  console.log('Initialize finished')
+  prisma.$disconnect()
+  
 }
 
 

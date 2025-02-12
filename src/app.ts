@@ -5,6 +5,7 @@ import { ApolloServer } from "apollo-server-express";
 import { typeDefs } from "./graphql/schema";
 import { resolvers } from "./graphql/resolvers";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+import prisma from "./prisma"; // Import the shared Prisma instance
 
 
 const corsOptions = {
@@ -43,13 +44,29 @@ class App {
 
   public listen() {
     this.connectDB().then(() => {
-      this.app.listen(this.port, (err?: any) => {
+      const expressInstance = this.app.listen(this.port, (err?: any) => {
         console.log(`=================================`);
         console.log(`======= ENV: ${this.env} =======`);
         console.log(`🚀 App listening on port ${this.port}`);
         console.log(`=================================`);
       });
+    
+      process.on("SIGINT", async () => {
+        await this.closeDB();
+        console.log('Closing db session')
+      });
+
+      process.on("SIGTERM", async () => {
+        await this.closeDB();
+        console.log('Closing db session')
+      });
+
     });
+  }
+
+  public async closeDB() {
+    await prisma.$disconnect();
+    console.log("Database connection closed");
   }
 }
 
