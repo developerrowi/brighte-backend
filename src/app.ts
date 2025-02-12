@@ -44,7 +44,7 @@ class App {
 
   public listen() {
     this.connectDB().then(() => {
-      const expressInstance = this.app.listen(this.port, (err?: any) => {
+      this.app.listen(this.port, (err?: any) => {
         console.log(`=================================`);
         console.log(`======= ENV: ${this.env} =======`);
         console.log(`🚀 App listening on port ${this.port}`);
@@ -54,11 +54,13 @@ class App {
       process.on("SIGINT", async () => {
         await this.closeDB();
         console.log('Closing db session')
+        process.exit(0)
       });
 
       process.on("SIGTERM", async () => {
         await this.closeDB();
         console.log('Closing db session')
+        process.exit(0)
       });
 
     });
